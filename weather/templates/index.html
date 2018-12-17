@@ -1,7 +1,97 @@
+<!DOCTYPE html>
 
-<h2>WEATHER API</h2>
+<html lang="en">
+<head>
 
-<p>The average temperature is <strong>{{ temp }}</strong> degree.</p>
-<p>the maximum temperature in London is <strong>{{ max }}</strong> degree</p>
-<p>the minimum temperature in London is <strong>{{ min }}</strong> degree</p>
-<p>the humidity in London is <strong>{{ humidity }}</strong>%</p>
+</head>
+<body>
+
+  <div id="like_button_container"></div>
+  <div id="table-component"></div>
+
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/react-table@latest/react-table.css">
+
+  <!-- JS -->
+  <script src="https://unpkg.com/react-table@latest/react-table.js"></script>
+  <script src="https://unpkg.com/react-table@latest/react-table.min.js"></script>
+
+  <script>
+    var ReactTable = window.ReactTable.default
+
+    const e = React.createElement;
+
+    // class LikeButton extends React.Component {
+    //   constructor(props) {
+    //     super(props);
+    //     this.state = { liked: false };
+    //   }
+    //
+    //   render() {
+    //     if (this.state.liked) {
+    //       return 'You liked this.';
+    //     }
+    //
+    //     return e(
+    //         'button',
+    //         { onClick: () => this.setState({ liked: true }) },
+    //         'Like'
+    //     );
+    //   }
+    // }
+
+
+
+    const columns = [{
+      Header: null,
+      accessor: 'title',
+      minWidth: 200,
+      maxWidth: 240
+    }, {
+      Header: null,
+      accessor: 'value',
+      minWidth: 200,
+      maxWidth: 250
+    }];
+    const data = [{
+      'title': 'Temperature',
+      'value': {{ temp }}
+    }, {
+      'title': 'Minimum Temperature',
+      'value': {{ min }}
+    }, {
+      'title': 'Maximum Temperature',
+      'value': {{ max }}
+    }, {
+      'title': 'Humidity',
+      'value': '{{ humidity }}%'
+    }]
+
+
+    const props = {
+      data: data,
+      columns: columns,
+      defaultPageSize: 4,
+      showPagination: false,
+      showPageSizeOptions: false,
+    }
+
+    const domContainer = document.querySelector('#like_button_container');
+    ReactDOM.render(e(ReactTable, props), domContainer);
+  </script>
+
+  <h2>WEATHER API</h2>
+
+  <p>The average temperature is <strong>{{ temp }}</strong> degree.</p>
+  <p>the maximum temperature in London is <strong>{{ max }}</strong> degree</p>
+  <p>the minimum temperature in London is <strong>{{ min }}</strong> degree</p>
+  <p>the humidity in London is <strong>{{ humidity }}</strong>%</p>
+
+
+
+</body>
+
+</html>
