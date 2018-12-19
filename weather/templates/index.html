@@ -58,16 +58,16 @@
     }];
     const data = [{
       'title': 'Temperature',
-      'value': {{ temp }}
+      'value': '{{ weather_summary.temp }}°C'
     }, {
       'title': 'Minimum Temperature',
-      'value': {{ min }}
+      'value': '{{ weather_summary.min }}°C'
     }, {
       'title': 'Maximum Temperature',
-      'value': {{ max }}
+      'value': '{{weather_summary.max }}°C'
     }, {
       'title': 'Humidity',
-      'value': '{{ humidity }}%'
+      'value': '{{ weather_summary.humidity }}%'
     }]
 
 
@@ -85,11 +85,13 @@
 
   <h2>WEATHER API</h2>
 
-  <p>The average temperature is <strong>{{ temp }}</strong> degree.</p>
+  <p>The average temperature is <strong>{{ weather_summary.temp }}</strong> degree.</p>
   <p>the maximum temperature in London is <strong>{{ max }}</strong> degree</p>
   <p>the minimum temperature in London is <strong>{{ min }}</strong> degree</p>
   <p>the humidity in London is <strong>{{ humidity }}</strong>%</p>
 
+  <h2>WEATHER FORECAST API</h2>
+  <p>The temperatures of tomorrow are <strong>{{weather_forecast_summary}}</strong></p>
 
 
 </body>
