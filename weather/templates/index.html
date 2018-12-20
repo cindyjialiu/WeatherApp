@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 
 <html lang="en">
@@ -6,44 +7,26 @@
 </head>
 <body>
 
-  <div id="like_button_container"></div>
   <div id="table-component"></div>
 
-  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+  <!--<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>-->
+  <!--<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>-->
   <!-- CSS -->
   <link rel="stylesheet" href="https://unpkg.com/react-table@latest/react-table.css">
 
   <!-- JS -->
-  <script src="https://unpkg.com/react-table@latest/react-table.js"></script>
-  <script src="https://unpkg.com/react-table@latest/react-table.min.js"></script>
+  <!--<script src="https://unpkg.com/react-table@latest/react-table.js"></script>-->
+  <!--<script src="https://unpkg.com/react-table@latest/react-table.min.js"></script>-->
 
-  <script>
-    var ReactTable = window.ReactTable.default
+  <!--<script type="module" src="{% static "react-d3-components.min.js" %}"></script>-->
+  <!--<script type="module" src="{% static "react-d3-components.js" %}"></script>-->
+
+  <script type="module">
+    import ReactTable from "https://dev.jspm.io/react-table"
+    import React from "https://dev.jspm.io/react"
+    import ReactDOM from "https://dev.jspm.io/react-dom"
 
     const e = React.createElement;
-
-    // class LikeButton extends React.Component {
-    //   constructor(props) {
-    //     super(props);
-    //     this.state = { liked: false };
-    //   }
-    //
-    //   render() {
-    //     if (this.state.liked) {
-    //       return 'You liked this.';
-    //     }
-    //
-    //     return e(
-    //         'button',
-    //         { onClick: () => this.setState({ liked: true }) },
-    //         'Like'
-    //     );
-    //   }
-    // }
-
-
 
     const columns = [{
       Header: null,
@@ -70,7 +53,6 @@
       'value': '{{ weather_summary.humidity }}%'
     }]
 
-
     const props = {
       data: data,
       columns: columns,
@@ -79,8 +61,8 @@
       showPageSizeOptions: false,
     }
 
-    const domContainer = document.querySelector('#like_button_container');
-    ReactDOM.render(e(ReactTable, props), domContainer);
+    const domContainer = document.querySelector('#table-component');
+    ReactDOM.render(e(ReactTable.default, props), domContainer);
   </script>
 
   <h2>WEATHER API</h2>
@@ -89,6 +71,40 @@
   <p>the maximum temperature in London is <strong>{{ max }}</strong> degree</p>
   <p>the minimum temperature in London is <strong>{{ min }}</strong> degree</p>
   <p>the humidity in London is <strong>{{ humidity }}</strong>%</p>
+
+
+  <div id="bar-chart"></div>
+
+  <script type="module">
+    import ReactD3 from "https://dev.jspm.io/react-d3-components"
+    import ReactDOM from "https://dev.jspm.io/react-dom"
+    import React from "https://dev.jspm.io/react"
+
+    let BarChart = ReactD3.BarChart
+    const e = React.createElement;
+
+    let data = [{
+      label: 'dayTemperatures',
+      values: [
+              {x: 'A', y: 10},
+              {x: 'B', y: 4},
+              {x: 'C', y: 3},
+              {x: 'D', y: 8},
+              {x: 'E', y: 2}
+          ]
+    }];
+
+    const props = {
+      data: data,
+      width: 600,
+      height: 400,
+      margin: {top: 10, bottom: 50, left: 50, right: 10}
+    }
+
+    const domContainerBarchart = document.querySelector('#bar-chart');
+    ReactDOM.render(e(BarChart, props,), domContainerBarchart);
+
+  </script>
 
   <h2>WEATHER FORECAST API</h2>
   <p>The temperatures of tomorrow are <strong>{{weather_forecast_summary}}</strong></p>
