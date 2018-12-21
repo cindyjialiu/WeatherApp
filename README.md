@@ -48,7 +48,7 @@ researching and learning in order to get to the point I can build the project st
 * This part of the data requires a different API call, but the fetching historical weather data API is not 
 available to free account, normally I would search for a different API or seek for a paid account
 to achieve it. But for the purpose of this exercise, I decided to use the weather forecast API instead. 
-* 
+* Used react bar chart as the template to link it with the weather forecast data to populate the temperatures across the day.
 
 ## What I have learnt
 
