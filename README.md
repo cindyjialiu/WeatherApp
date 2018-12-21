@@ -5,20 +5,26 @@ As a user, I want to be able to see the minimum, maximum, average, temperature a
 
 ## Technology Used
 ### Backend
-* Language: Python
+* Language: Python3
 * Framework: Django
 ### Frontend
 * React
 * JavaScript
 ## Setup(for mac)
 Unzip the file or clone the repo
-If you don't have Django installed, please follow the guide [here](https://docs.djangoproject.com/en/2.1/topics/install/).
+If you don't have Python3 or Django installed, please follow the guide [here](https://docs.djangoproject.com/en/2.1/topics/install/).
+
 ```bash
 git clone: git@github.com:cindyjialiu/WeatherApp.git 
 ```
 ```bash
+# Install Django
+pip install Django
+pip install requests
 npm install
 cd WeatherApp
+# You need to create an account and generate your own API key from ttps://openweathermap.org/api
+export WEATHER_API_KEY={YOUR API KEY}
 # To start the server locally
 ./manage.py runserver 
 ```
@@ -62,12 +68,13 @@ setup react project from scratch.
 * I also would like to practise more on building small projects and gain more knowledge systematically.
 
 ## Future work
+* Setup Travis and deploy to Heroku.
 * Need to write tests for frontend and add more unit tests for the backend logic.
 * Making barchart to be responsive.
 * Not sure if the current structure of index.html is the proper way to do it, so I would prefer to 
-separate the JavaScript/Python code from html.
+separate the JavaScript code from html.
 * Make the app interactive, so the user can input the city or period of time to search the weather information.
-* Building UI
+* UI styling
 
 ## What went well
 * Manage to get the data from the weather API calls and show it on the web page.
