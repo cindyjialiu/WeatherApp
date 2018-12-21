@@ -2,9 +2,11 @@ from django.test import TestCase
 from .views import get_weather_summary
 from .views import get_weather_forecast_temp_and_dt
 from .views import get_temps_for_tomorrow
+from .views import get_temps_for_tomorrow_without_date
 import datetime
 
 class WeatherTest(TestCase):
+  # TODO: need more tests to cover unhappy paths
 
     def test_get_weather_summary(self):
         weather_data = {
@@ -97,12 +99,12 @@ class WeatherTest(TestCase):
         ]
         expected = [
           {
-            "temp": 7.92,
-            "dt": "2018-12-19 00:00:00"
+            "y": 7.92,
+            "x": "2018-12-19 00:00:00"
           },
           {
-            "temp": 6.68,
-            "dt": "2018-12-20 00:00:00"
+            "y": 6.68,
+            "x": "2018-12-20 00:00:00"
           }
         ]
 
@@ -111,23 +113,39 @@ class WeatherTest(TestCase):
     def test_get_temps_for_tomorrow(self):
         filtered_forecast_data = [
           {
-            "temp": 7.92,
-            "dt": "2018-12-19 00:00:00"
+            "y": 7.92,
+            "x": "2018-12-19 00:00:00"
           },
           {
-            "temp": 6.68,
-            "dt": "2018-12-20 00:00:00"
+            "y": 6.68,
+            "x": "2018-12-20 00:00:00"
           }
         ]
         expected = [
           {
-            "temp": 6.68,
-            "dt": "2018-12-20 00:00:00"
+            "y": 6.68,
+            "x": "2018-12-20 00:00:00"
           }
         ]
 
         today = datetime.datetime(2018,12,19)
 
         self.assertEquals(get_temps_for_tomorrow(filtered_forecast_data, today), expected)
+
+    def test_get_temps_for_tomorrow_without_date(self):
+        filtered_forecast_data = [
+          {
+            "y": 6.68,
+            "x": "2018-12-20 00:00:00"
+          }
+        ]
+        expected = [
+            {
+              "y": 6.68,
+              "x": "00:00"
+            }
+          ]
+
+        self.assertEquals(get_temps_for_tomorrow_without_date(filtered_forecast_data), expected)
 
 

@@ -18,11 +18,11 @@ def index(request):
 
     weather_summary = get_weather_summary(weather_data)
     weather_forecast_summary = get_temps_for_tomorrow(get_weather_forecast_temp_and_dt(weather_forecast_data['list']), today)
+    weather_forecast_tomorrow = get_temps_for_tomorrow_without_date(weather_forecast_summary)
 
-    return render(request, 'index.html', { 'weather_forecast_summary': weather_forecast_summary,
+    return render(request, 'index.html', { 'weather_forecast_tomorrow': weather_forecast_tomorrow,
                                            'weather_summary': weather_summary
                                            })
-
 
 def get_weather_summary(weather_data):
     return {
@@ -34,13 +34,19 @@ def get_weather_summary(weather_data):
 
 def get_weather_forecast_temp_and_dt(weather_forecast_data):
     return list(map(lambda x: {
-        'temp': x['main']['temp'],
-        'dt': x['dt_txt']
+        'y': x['main']['temp'],
+        'x': x['dt_txt']
       }, weather_forecast_data))
 
 
 def get_temps_for_tomorrow(filtered_forecast_data, today):
     tomorrow = str(today + datetime.timedelta(days = 1)).split(' ')[0]
-    print(today)
+    return list(filter(lambda x: x['x'].split(' ')[0] == tomorrow, filtered_forecast_data ))
 
-    return list(filter(lambda x: x['dt'].split(' ')[0] == tomorrow, filtered_forecast_data ))
+def get_temps_for_tomorrow_without_date(tomorrow_temps_data):
+    return list(map(lambda x: {
+        'x': dt_txt_formatter(x['x']), 'y': x['y']}, tomorrow_temps_data))
+
+def dt_txt_formatter(dateTime):
+    return dateTime.split(' ')[1][:-3]
+

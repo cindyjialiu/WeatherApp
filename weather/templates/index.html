@@ -7,19 +7,14 @@
 </head>
 <body>
 
-  <div id="table-component"></div>
-
-  <!--<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>-->
-  <!--<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>-->
-  <!-- CSS -->
   <link rel="stylesheet" href="https://unpkg.com/react-table@latest/react-table.css">
 
-  <!-- JS -->
-  <!--<script src="https://unpkg.com/react-table@latest/react-table.js"></script>-->
-  <!--<script src="https://unpkg.com/react-table@latest/react-table.min.js"></script>-->
+  <h2>WEATHER API</h2>
 
-  <!--<script type="module" src="{% static "react-d3-components.min.js" %}"></script>-->
-  <!--<script type="module" src="{% static "react-d3-components.js" %}"></script>-->
+  <p>The average temperature is <strong>{{ weather_summary.temp }}</strong> degree.</p>
+  <p>The maximum temperature in London is <strong>{{ max }}</strong> degree</p>
+  <p>The minimum temperature in London is <strong>{{ min }}</strong> degree</p>
+  <p>The humidity in London is <strong>{{ humidity }}</strong>%</p>
 
   <script type="module">
     import ReactTable from "https://dev.jspm.io/react-table"
@@ -32,7 +27,7 @@
       Header: null,
       accessor: 'title',
       minWidth: 200,
-      maxWidth: 240
+      maxWidth: 300
     }, {
       Header: null,
       accessor: 'value',
@@ -65,15 +60,8 @@
     ReactDOM.render(e(ReactTable.default, props), domContainer);
   </script>
 
-  <h2>WEATHER API</h2>
 
-  <p>The average temperature is <strong>{{ weather_summary.temp }}</strong> degree.</p>
-  <p>the maximum temperature in London is <strong>{{ max }}</strong> degree</p>
-  <p>the minimum temperature in London is <strong>{{ min }}</strong> degree</p>
-  <p>the humidity in London is <strong>{{ humidity }}</strong>%</p>
-
-
-  <div id="bar-chart"></div>
+  <div id="table-component"></div>
 
   <script type="module">
     import ReactD3 from "https://dev.jspm.io/react-d3-components"
@@ -86,11 +74,9 @@
     let data = [{
       label: 'dayTemperatures',
       values: [
-              {x: 'A', y: 10},
-              {x: 'B', y: 4},
-              {x: 'C', y: 3},
-              {x: 'D', y: 8},
-              {x: 'E', y: 2}
+        {% for element in weather_forecast_tomorrow %}
+            {x: '{{element.x}}', y: {{element.y}}},
+         {% endfor %}
           ]
     }];
 
@@ -107,8 +93,12 @@
   </script>
 
   <h2>WEATHER FORECAST API</h2>
-  <p>The temperatures of tomorrow are <strong>{{weather_forecast_summary}}</strong></p>
-
+  <p>The temperatures of tomorrow are <strong>
+    {% for element in weather_forecast_tomorrow %}
+            {{element.x}}, {{element.y}}
+    {% endfor %}
+  </strong></p>
+  <div id="bar-chart"></div>
 
 </body>
 
