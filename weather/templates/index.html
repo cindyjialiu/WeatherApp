@@ -9,12 +9,7 @@
 
   <link rel="stylesheet" href="https://unpkg.com/react-table@latest/react-table.css">
 
-  <h2>WEATHER API</h2>
-
-  <p>The average temperature is <strong>{{ weather_summary.temp }}</strong> degree.</p>
-  <p>The maximum temperature in London is <strong>{{ max }}</strong> degree</p>
-  <p>The minimum temperature in London is <strong>{{ min }}</strong> degree</p>
-  <p>The humidity in London is <strong>{{ humidity }}</strong>%</p>
+  <h2>Temperature in London today</h2>
 
   <script type="module">
     import ReactTable from "https://dev.jspm.io/react-table"
@@ -92,7 +87,7 @@
 
   </script>
 
-  <h2>WEATHER FORECAST API</h2>
+  <h2>Temperature in London tomorrow</h2>
   <p>The temperatures of tomorrow are <strong>
     {% for element in weather_forecast_tomorrow %}
             {{element.x}}, {{element.y}}
